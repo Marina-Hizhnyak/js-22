@@ -4,16 +4,23 @@ import '../css/feedback-form.css';
 
 const STORAGE_KEY = 'feedback-msg';
 
+// const refs = {
+//   form: document.querySelector('.js-feedback-form'),
+//   textarea: document.querySelector('.js-feedback-form  textarea'),
+// };
+
+// refs.form.addEventListener('submit', onFormSubmit);
+// refs.textarea.addEventListener('input', throttle(onTextareaInput, 200));
+
+// populateTextarea();
 const refs = {
-  form: document.querySelector('.js-feedback-form'),
+  form: document.querySelector(".js-feedback-form"),
   textarea: document.querySelector('.js-feedback-form  textarea'),
-};
+}
 
-refs.form.addEventListener('submit', onFormSubmit);
-refs.textarea.addEventListener('input', throttle(onTextareaInput, 200));
-
+refs.form.addEventListener("submit", onFormSubmit);
+refs.textarea.addEventListener("input", throttle(onTextareaInput,1000));
 populateTextarea();
-
 /*
  * - Останавливаем поведение по умолчанию
  * - Убираем сообщение из хранилища
@@ -21,10 +28,9 @@ populateTextarea();
  */
 function onFormSubmit(evt) {
   evt.preventDefault();
-
-  console.log('Отправляем форму');
   evt.currentTarget.reset();
   localStorage.removeItem(STORAGE_KEY);
+  // localStorage.removeItem(STORAGE_KEY);
 }
 
 /*
@@ -34,14 +40,16 @@ function onFormSubmit(evt) {
  */
 function onTextareaInput(evt) {
   const message = evt.target.value;
-
-  localStorage.setItem(STORAGE_KEY, message);
+  
+  localStorage.setItem(STORAGE_KEY,message)
+  // localStorage.setItem(STORAGE_KEY, message);
 }
 
 /*
  * - Получаем значение из хранилища
  * - Если там что-то было, обновляем DOM
  */
+
 function populateTextarea() {
   const savedMessage = localStorage.getItem(STORAGE_KEY);
 
